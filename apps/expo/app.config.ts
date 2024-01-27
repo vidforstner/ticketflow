@@ -37,7 +37,16 @@ const defineConfig = (): ExpoConfig => ({
     tsconfigPaths: true,
     typedRoutes: true,
   },
-  plugins: ["expo-router", "./expo-plugins/with-modify-gradle.js"],
+  plugins: [
+    "expo-router",
+    "./expo-plugins/with-modify-gradle.js",
+    [
+      "react-native-vision-camera",
+      {
+        cameraPermissionText: "$(PRODUCT_NAME) needs access to your Camera.",
+      },
+    ],
+  ],
 });
 
 export default defineConfig;
