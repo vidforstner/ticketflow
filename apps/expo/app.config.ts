@@ -41,9 +41,9 @@ const defineConfig = (): ExpoConfig => ({
     "expo-router",
     "./expo-plugins/with-modify-gradle.js",
     [
-      "react-native-vision-camera",
+      "expo-camera",
       {
-        cameraPermissionText: "$(PRODUCT_NAME) needs access to your Camera.",
+        cameraPermission: "Allow $(PRODUCT_NAME) to access your camera.",
       },
     ],
   ],
