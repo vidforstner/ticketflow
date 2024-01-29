@@ -47,6 +47,9 @@ importers:
       expo:
         specifier: ^49.0.21
         version: 49.0.22(@babel/core@7.23.9)
+      expo-barcode-scanner:
+        specifier: ^12.9.2
+        version: 12.9.2(expo@49.0.22)
       expo-camera:
         specifier: ~13.4.4
         version: 13.4.4(expo@49.0.22)
@@ -6731,6 +6734,15 @@ packages:
       - supports-color
     dev: false
 
+  /expo-barcode-scanner@12.9.2(expo@49.0.22):
+    resolution: {integrity: sha512-szsGCWMu6HXWigSKvGy7q+5v7EyIUr4SYdmMhzLxNQmNA8fPP2t2SMOhX8AVcGAqu9nOY7ij0bZUtAWrLFo6FA==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.22(@babel/core@7.23.9)
+      expo-image-loader: 4.6.0(expo@49.0.22)
+    dev: false
+
   /expo-camera@13.4.4(expo@49.0.22):
     resolution: {integrity: sha512-7k54APbpSulUDR2CrD5SrmKjCdfdg4tqKRpbBOKc2J2MIBHhunExU77435JDYSejHRY5bfRHZsEp3yKwR862uw==}
     peerDependencies:
@@ -6783,6 +6795,14 @@ packages:
       react-native: 0.72.5(@babel/core@7.23.9)(@babel/preset-env@7.23.9)(react@18.2.0)
     transitivePeerDependencies:
       - react-dom
+    dev: false
+
+  /expo-image-loader@4.6.0(expo@49.0.22):
+    resolution: {integrity: sha512-RHQTDak7/KyhWUxikn2yNzXL7i2cs16cMp6gEAgkHOjVhoCJQoOJ0Ljrt4cKQ3IowxgCuOrAgSUzGkqs7omj8Q==}
+    peerDependencies:
+      expo: '*'
+    dependencies:
+      expo: 49.0.22(@babel/core@7.23.9)
     dev: false
 
   /expo-keep-awake@12.3.0(expo@49.0.22):

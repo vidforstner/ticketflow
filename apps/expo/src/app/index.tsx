@@ -1,19 +1,15 @@
 import { useState } from "react";
 import { Button, Text, TouchableOpacity, View } from "react-native";
-import { Camera, CameraType } from "expo-camera";
+import { Camera, CameraType } from "expo-camera/";
 import { Stack } from "expo-router";
 
 export default function App() {
   const [type, setType] = useState(CameraType.back);
   const [permission, requestPermission] = Camera.useCameraPermissions();
 
-  if (!permission) {
-    // Camera permissions are still loading
-    return <View />;
-  }
+  if (!permission) return <View />;
 
-  if (!permission.granted) {
-    // Camera permissions are not granted yet
+  if (!permission.granted)
     return (
       <View className="h-full justify-center">
         <Text style={{ textAlign: "center" }}>
@@ -22,7 +18,6 @@ export default function App() {
         <Button onPress={requestPermission} title="grant permission" />
       </View>
     );
-  }
 
   function toggleCameraType() {
     setType((current) =>
