@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+  relationMode      = "prisma"
+}
+
+model Organization {
+  id          String       @id @default(cuid())
+  clerkId     String       @unique
+  name        String
+  slug        String?      @unique
+  imageKey    String?
+  isDeleted   Boolean      @default(false)
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @default(now())
+  investments Investment[]
+  valuations  Valuation[]
+  questions   Question[]
+  documents   Document[]
+  users       User[]
+}
+
+model User {
+  id            String         @id @default(cuid())
+  clerkId       String?        @unique
+  firstName     String
+  lastName      String
+  email         String
+  isAdmin       Boolean        @default(false)
+  createdAt     DateTime       @default(now())
+  isDeleted     Boolean        @default(false)
+  investments   Investment[]
+  question      Question[]
+  Update        Update[]
+  Document      Document[]
+  organizations Organization[]
+}
+
+model Investment {
+  id             String        @id @default(cuid())
+  date           DateTime      @default(now())
+  equity         Float
+  note           String        @default("")
+  isDeleted      Boolean       @default(false)
+  userId         String
+  valuationId    String
+  organizationId String?
+  user           User          @relation(fields: [userId], references: [id])
+  valuation      Valuation     @relation(fields: [valuationId], references: [id])
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+  @@index([userId])
+  @@index([valuationId])
+}
+
+model Valuation {
+  id             String        @id @default(cuid())
+  value          Float
+  supply         Float
+  date           DateTime      @default(now())
+  isDeleted      Boolean       @default(false)
+  organizationId String?
+  investments    Investment[]
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+}
+
+model Question {
+  id             String        @id @default(cuid())
+  question       String        @db.MediumText
+  answer         String?       @db.MediumText
+  date           DateTime      @default(now())
+  authorId       String
+  organizationId String?
+  author         User          @relation(fields: [authorId], references: [id])
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+  @@index([authorId])
+}
+
+model Update {
+  id               String     @id @default(cuid())
+  date             DateTime   @default(now())
+  title            String
+  authorId         String
+  content          String?    @db.LongText
+  imageKey         String?
+  visibility       Visibility @default(draft)
+  slug             String?    @unique
+  notificationSent Boolean    @default(false)
+  author           User       @relation(fields: [authorId], references: [id])
+
+  @@index([authorId])
+}
+
+model Document {
+  id             String        @id @default(cuid())
+  title          String
+  key            String        @unique
+  date           DateTime      @default(now())
+  isPublic       Boolean       @default(true)
+  authorId       String
+  organizationId String?
+  author         User          @relation(fields: [authorId], references: [id])
+  organization   Organization? @relation(fields: [organizationId], references: [id])
+
+  @@index([organizationId])
+  @@index([authorId])
+}
+
+enum Visibility {
+  public
+  draft
+  investors
+  staff
+  unlisted
+}
