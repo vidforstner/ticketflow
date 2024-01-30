@@ -283,8 +283,8 @@ importers:
         specifier: ^0.1.0
         version: link:../../tooling/typescript
       '@types/node':
-        specifier: ^18.16.2
-        version: 18.19.10
+        specifier: ^20.10.6
+        version: 20.11.9
       dotenv-cli:
         specifier: ^7.3.0
         version: 7.3.0
@@ -292,7 +292,7 @@ importers:
         specifier: ^5.2.0
         version: 5.8.1
       typescript:
-        specifier: ^5.0.4
+        specifier: ^5.3.3
         version: 5.3.3
 
   packages/ui:
@@ -3896,12 +3896,6 @@ packages:
 
   /@types/minimatch@5.1.2:
     resolution: {integrity: sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==}
-    dev: true
-
-  /@types/node@18.19.10:
-    resolution: {integrity: sha512-IZD8kAM02AW1HRDTPOlz3npFava678pr8Ie9Vp8uRhBROXAv8MXT2pCnGZZAKYdromsNQLHQcfWQ6EOatVLtqA==}
-    dependencies:
-      undici-types: 5.26.5
     dev: true
 
   /@types/node@20.11.9:

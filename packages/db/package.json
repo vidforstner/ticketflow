@@ -16,9 +16,9 @@
   },
   "devDependencies": {
     "@acme/tsconfig": "^0.1.0",
-    "@types/node": "^18.16.2",
+    "@types/node": "^20.10.6",
     "dotenv-cli": "^7.3.0",
     "prisma": "^5.2.0",
-    "typescript": "^5.0.4"
+    "typescript": "^5.3.3"
   }
 }
