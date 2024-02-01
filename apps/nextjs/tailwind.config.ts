@@ -9,6 +9,11 @@ export default {
   content: [...baseConfig.content, "../../packages/ui/**/*.{ts,tsx}"],
   presets: [baseConfig],
   theme: {
+    container: {
+      center: true,
+      padding: "1rem",
+    },
+
     extend: {
       fontFamily: {
         sans: ["var(--font-geist-sans)", ...fontFamily.sans],
