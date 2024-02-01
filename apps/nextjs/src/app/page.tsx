@@ -1,36 +1,51 @@
 "use client";
 
-import Slider from "react-slick";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 export default function HomePage() {
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    centerMode: true,
-    focusOnSelect: true,
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          slidesToShow: 1,
-          slidesToScroll: 1,
-          centerMode: false,
-        },
-      },
-    ],
-  };
   return (
-    <main className="mt-16">
-      <section className="h-[1080px] overflow-x-hidden text-black">
-        <Slider {...settings}>
-          <div className="mx-2 h-[650px] bg-white">ssdsd </div>
-          <div className="mx-2 h-full bg-white">ssdsd </div>
-          <div className="mx-2 h-full bg-white">ssdsd </div>
-        </Slider>
-      </section>
+    <main className="container mt-24">
+      <Carousel
+        opts={{
+          loop: true,
+        }}
+        className="aspect-w-16 aspect-h-9 overflow-hidden rounded-xl bg-black"
+      >
+        <CarouselContent>
+          <CarouselItem className="aspect-[2/1] rounded-xl bg-black">
+            {/* Using default img instead of Next.js Image */}
+            <img
+              src="/afrojack.jpg"
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              alt=""
+            />
+          </CarouselItem>
+          <CarouselItem className="aspect-[2/1] rounded-xl bg-black">
+            {/* Using default img instead of Next.js Image */}
+            <img
+              src="/devito.jpeg"
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              alt=""
+            />
+          </CarouselItem>
+          <CarouselItem className="aspect-[2/1] rounded-xl bg-black">
+            {/* Using default img instead of Next.js Image */}
+            <img
+              src="/trile.jpeg"
+              style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              alt=""
+            />
+          </CarouselItem>
+        </CarouselContent>
+        <CarouselPrevious className="absolute left-2 z-50 text-black" />
+        <CarouselNext className="absolute right-2 z-50 text-black" />
+      </Carousel>
     </main>
   );
 }

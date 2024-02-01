@@ -6,7 +6,7 @@ import { cn } from "@acme/ui";
 import { Toaster } from "@acme/ui/toast";
 
 import { env } from "~/env";
-import Navbar from "./_components/navbar";
+import Navbar from "../components/navbar";
 
 import "~/app/globals.css";
 
@@ -41,8 +41,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           GeistMono.variable,
         )}
       >
-        <Navbar />
-        {props.children}
+        <Navbar>{props.children}</Navbar>
         <Toaster />
       </body>
     </html>
