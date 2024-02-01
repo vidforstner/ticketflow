@@ -7,6 +7,21 @@ import { MenuIcon, XIcon } from "lucide-react";
 export default function Navbar({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
 
+  const items = [
+    {
+      name: "Dogodki",
+      href: "#",
+    },
+    {
+      name: "Prodajna Mesta",
+      href: "#",
+    },
+    {
+      name: "Za Organizatorje",
+      href: "#",
+    },
+  ];
+
   return (
     <>
       <div className="fixed top-0 h-16 w-full bg-black text-sm">
@@ -16,43 +31,29 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           </Link>
 
           <div className="hidden w-full lg:flex ">
-            <Link
-              className="mt-1 rounded-full px-4 py-1 text-neutral-400 duration-200 hover:bg-neutral-800 hover:text-neutral-100"
-              href="#"
-            >
-              Dogodki
-            </Link>
-
-            <Link
-              className="mt-1 rounded-full px-4 py-1 text-neutral-400 duration-200 hover:bg-neutral-800 hover:text-neutral-100"
-              href="#"
-            >
-              Prodajna Mesta
-            </Link>
-
-            <Link
-              className="mt-1 rounded-full px-4 py-1 text-neutral-400 duration-200 hover:bg-neutral-800 hover:text-neutral-100"
-              href="#"
-            >
-              Za Organizatorje
-            </Link>
+            {items.map((item) => (
+              <Link
+                key={item.name}
+                className="mt-1 rounded-full px-4 py-1 text-neutral-400 duration-200 hover:bg-neutral-800 hover:text-neutral-100"
+                href={item.href}
+              >
+                {item.name}
+              </Link>
+            ))}
 
             <div className="grow" />
-
             <Link
               className="mt-1 px-2 py-1 text-neutral-400 duration-200 hover:text-neutral-100"
               href="#"
             >
               Kontakt
             </Link>
-
             <Link
               className="mx-2 rounded-md border border-neutral-600 bg-neutral-950 px-4 py-1.5 font-medium text-white duration-200 hover:bg-neutral-800"
               href="#"
             >
               Prijava
             </Link>
-
             <Link
               className="rounded-md border border-neutral-600 bg-white px-4 py-1.5 font-medium text-black duration-200 hover:bg-neutral-200"
               href="#"
@@ -76,7 +77,38 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         </div>
       </div>
 
-      {!isOpen && children}
+      {isOpen ? (
+        <div className="container fixed top-16 w-full text-white lg:hidden">
+          <Link
+            className="my-2 block rounded-md border border-neutral-700 py-3 text-center text-sm text-white duration-200 hover:bg-neutral-800"
+            href="#"
+          >
+            Prijava
+          </Link>
+
+          <Link
+            className="my-2 block rounded-md border  border-neutral-700 bg-white py-3 text-center text-sm text-black duration-200 hover:bg-neutral-200"
+            href="#"
+          >
+            Registracija
+          </Link>
+
+          {items.map((item) => (
+            <Link
+              key={item.name}
+              className="block border-b border-neutral-600 py-3"
+              href={item.href}
+            >
+              {item.name}
+            </Link>
+          ))}
+          <Link className="block border-b border-neutral-600 py-3" href="#">
+            Kontakt
+          </Link>
+        </div>
+      ) : (
+        children
+      )}
     </>
   );
 }
