@@ -24,7 +24,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      <div className="fixed top-0 h-16 w-full bg-black text-sm">
+      <div className="fixed top-0 z-50 h-16 w-full bg-black text-sm">
         <div className="container flex h-full items-center">
           <Link href="#" className="mr-8 text-xl font-bold">
             Ticketflow
