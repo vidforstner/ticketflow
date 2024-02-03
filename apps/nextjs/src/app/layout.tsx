@@ -11,6 +11,7 @@ import Navbar from "../components/navbar";
 
 import "~/app/globals.css";
 
+//https://github.com/clerk/javascript/blob/main/packages/localizations/src/en-US.ts
 const localization = {
   socialButtonsBlockButton: "Nadaljuj z {{provider|titleize}}",
   dividerText: "ali",

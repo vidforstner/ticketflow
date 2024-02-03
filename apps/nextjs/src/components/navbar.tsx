@@ -1,11 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { MenuIcon, XIcon } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { MenuIcon, Ticket, XIcon } from "lucide-react";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
 
   const items = [
     {
@@ -26,7 +33,8 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
     <>
       <div className="fixed top-0 z-50 h-16 w-full bg-black text-sm">
         <div className="container flex h-full items-center">
-          <Link href="#" className="mr-8 text-xl font-bold">
+          <Link href="#" className="mr-8 flex text-xl font-bold">
+            <Ticket className="mr-1 mt-[0.2rem] text-white" size={24} />
             Ticketflow
           </Link>
 
@@ -81,14 +89,14 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
         <div className="container fixed top-16 w-full text-white lg:hidden">
           <Link
             className="my-2 block rounded-md border border-neutral-700 py-3 text-center text-sm text-white duration-200 hover:bg-neutral-800"
-            href="#"
+            href="/prijava"
           >
             Prijava
           </Link>
 
           <Link
             className="my-2 block rounded-md border  border-neutral-700 bg-white py-3 text-center text-sm text-black duration-200 hover:bg-neutral-200"
-            href="#"
+            href="/registracija"
           >
             Registracija
           </Link>
