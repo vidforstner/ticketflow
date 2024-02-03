@@ -50,13 +50,13 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
             </Link>
             <Link
               className="mx-2 rounded-md border border-neutral-600 bg-neutral-950 px-4 py-1.5 font-medium text-white duration-200 hover:bg-neutral-800"
-              href="#"
+              href="/prijava"
             >
               Prijava
             </Link>
             <Link
               className="rounded-md border border-neutral-600 bg-white px-4 py-1.5 font-medium text-black duration-200 hover:bg-neutral-200"
-              href="#"
+              href="/registracija"
             >
               Registracija
             </Link>
