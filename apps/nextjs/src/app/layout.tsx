@@ -28,7 +28,7 @@ const localization = {
       actionLink: "Prijava",
     },
     emailLink: {
-      title: "Verify your email",
+      title: "Potrdi svoj email",
       subtitle: "to continue to {{applicationName}}",
       formTitle: "Verification link",
       formSubtitle: "Use the verification link sent to your email address",
@@ -46,11 +46,11 @@ const localization = {
       },
     },
     emailCode: {
-      title: "Verify your email",
-      subtitle: "to continue to {{applicationName}}",
-      formTitle: "Verification code",
-      formSubtitle: "Enter the verification code sent to your email address",
-      resendButton: "Didn't receive a code? Resend",
+      title: "Potrdi svoj email",
+      subtitle: "za nadaljevanje v {{applicationName}}",
+      formTitle: "Potrditvena koda",
+      formSubtitle: "vpiši potrditveno kodo, ki si jo prejel na svoj email",
+      resendButton: "Ni prejel kode? Ponovno pošlji",
     },
     phoneCode: {
       title: "Verify your phone",
@@ -72,6 +72,22 @@ const localization = {
       subtitle: "Prijavi se v svoj račun",
       actionText: "Nimaš računa?",
       actionLink: "Registracija",
+    },
+  },
+  userButton: {
+    action__manageAccount: "Uredi račun",
+    action__signOut: "Odjava",
+  },
+  userProfile: {
+    profilePage: {
+      title: "Uredi profil",
+      imageFormTitle: "Profilna slika",
+      imageFormSubtitle: "Naloži",
+      imageFormDestructiveActionSubtitle: "Odstrani",
+      fileDropAreaHint: "Priporočena velikost 1:1, do 10MB.",
+      readonly:
+        "Your profile information has been provided by the enterprise connection and cannot be edited.",
+      successMessage: "Your profile has been updated.",
     },
   },
 };

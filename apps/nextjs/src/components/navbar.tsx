@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+import { dark } from "@clerk/themes";
 import { MenuIcon, Ticket, XIcon } from "lucide-react";
 
 export default function Navbar({ children }: { children: React.ReactNode }) {
@@ -25,7 +27,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
     },
     {
       name: "Za Organizatorje",
-      href: "#",
+      href: "/organizatorji",
     },
   ];
 
@@ -33,7 +35,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
     <>
       <div className="fixed top-0 z-50 h-16 w-full bg-black text-sm">
         <div className="container flex h-full items-center">
-          <Link href="#" className="mr-8 flex text-xl font-bold">
+          <Link href="/" className="mr-8 flex text-xl font-bold">
             <Ticket className="mr-1 mt-[0.2rem] text-white" size={24} />
             Ticketflow
           </Link>
@@ -56,18 +58,36 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
             >
               Kontakt
             </Link>
-            <Link
-              className="mx-2 rounded-md border border-neutral-600 bg-neutral-950 px-4 py-1.5 font-medium text-white duration-200 hover:bg-neutral-800"
-              href="/prijava"
-            >
-              Prijava
-            </Link>
-            <Link
-              className="rounded-md border border-neutral-600 bg-white px-4 py-1.5 font-medium text-black duration-200 hover:bg-neutral-200"
-              href="/registracija"
-            >
-              Registracija
-            </Link>
+            <SignedOut>
+              <Link
+                className="mx-2 rounded-md border border-neutral-600 bg-neutral-950 px-4 py-1.5 font-medium text-white duration-200 hover:bg-neutral-800"
+                href="/prijava"
+              >
+                Prijava
+              </Link>
+              <Link
+                className="rounded-md border border-neutral-600 bg-white px-4 py-1.5 font-medium text-black duration-200 hover:bg-neutral-200"
+                href="/registracija"
+              >
+                Registracija
+              </Link>
+            </SignedOut>
+            <SignedIn>
+              <div className="ml-3 mt-0.5">
+                <UserButton
+                  appearance={{ baseTheme: dark }}
+                  userProfileProps={{
+                    appearance: {
+                      baseTheme: dark,
+                      variables: {
+                        colorPrimary: "#fff",
+                        colorTextOnPrimaryBackground: "#000",
+                      },
+                    },
+                  }}
+                />
+              </div>
+            </SignedIn>
           </div>
 
           <div className="flex w-full justify-end lg:hidden">
@@ -115,7 +135,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
           </Link>
         </div>
       ) : (
-        children
+        <div className="mt-16 text-white">{children}</div>
       )}
     </>
   );
