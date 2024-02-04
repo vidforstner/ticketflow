@@ -9,8 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
-import { CalendarIcon } from "@radix-ui/react-icons";
-import { format, setDate } from "date-fns";
+import { format } from "date-fns";
 
 import { Button } from "~/components/ui/button";
 import { Input } from "~/components/ui/input";
@@ -36,7 +35,7 @@ export default function Organizatorji() {
           <Label>Konec</Label>
 
           <div className="mt-1 grid grid-cols-2 gap-2">
-            <DatePicker date={start} setDate={setDate} />
+            <DatePicker date={start} setDate={(date) => setStart(date)} />
             <Input className="mb-4" />
           </div>
 
@@ -57,9 +56,13 @@ export default function Organizatorji() {
   );
 }
 
-export function DatePicker() {
-  const [date, setDate] = React.useState<Date>();
-
+export function DatePicker({
+  date,
+  setDate,
+}: {
+  date: Date;
+  setDate: (date: Date) => void;
+}) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -80,7 +83,7 @@ export function DatePicker() {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={(date: Date | undefined) => setDate(date ?? new Date())}
           initialFocus
         />
       </PopoverContent>
