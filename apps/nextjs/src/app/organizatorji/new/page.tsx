@@ -12,6 +12,7 @@ import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 
 import { Button } from "~/components/ui/button";
+import { DateTimePicker } from "~/components/ui/date-time-picker";
 import { Input } from "~/components/ui/input";
 import { Label } from "~/components/ui/label";
 
@@ -22,27 +23,38 @@ export default function Organizatorji() {
   const [start, setStart] = useState(new Date());
   const [end, setEnd] = useState(new Date());
 
+  // Custom function to handle date or undefined for start date
+  const handleSetStart = (date: Date | undefined) => {
+    if (date) setStart(date);
+    // Else handle 'undefined' case as needed
+  };
+
+  // Custom function to handle date or undefined for end date
+  const handleSetEnd = (date: Date | undefined) => {
+    if (date) setEnd(date);
+    // Else handle 'undefined' case as needed
+  };
+
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-1/3 rounded-2xl bg-neutral-900 p-6">
         <h1 className="mb-4 text-center text-2xl font-bold">Kaj, Kdaj, Kje?</h1>
 
         <Label htmlFor="name">Ime dogodka</Label>
-        <Input id="name" className="mb-4" />
+        <Input
+          id="name"
+          className="mb-4"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
         <div className="grid grid-cols-2 gap-x-4">
           <Label>Začetek</Label>
           <Label>Konec</Label>
 
-          <div className="mt-1 grid grid-cols-2 gap-2">
-            <DatePicker date={start} setDate={(date) => setStart(date)} />
-            <Input className="mb-4" />
-          </div>
+          <DateTimePicker date={start} setDate={handleSetStart} />
 
-          <div className="mt-1 grid grid-cols-2 gap-2">
-            <Input className="mb-4" />
-            <Input className="mb-4" />
-          </div>
+          <DateTimePicker date={end} setDate={handleSetEnd} />
         </div>
 
         <div className="mt-4 flex justify-end">
