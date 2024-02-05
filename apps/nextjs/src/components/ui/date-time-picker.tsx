@@ -37,6 +37,7 @@ export function DateTimePicker({
       </PopoverTrigger>
       <PopoverContent className="w-auto border-neutral-700 bg-neutral-900 p-0 text-neutral-100">
         <Calendar
+          fromDate={new Date()}
           mode="single"
           selected={date}
           onSelect={setDate}
