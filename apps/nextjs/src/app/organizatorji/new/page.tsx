@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import * as React from "react";
 import {
   Select,
@@ -11,8 +11,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
-import { AutoComplete } from "~/components/autocomplete";
 import { Button } from "~/components/ui/button";
 import { DateTimePicker } from "~/components/ui/date-time-picker";
 import { Input } from "~/components/ui/input";
@@ -66,15 +66,46 @@ export default function Organizatorji() {
               <Label>Lokacija</Label>
               <Label className="mb-1">Vrsta dogodka</Label>
 
-              <AutoComplete
-                emptyMessage="Ni rezultatov"
-                options={[
-                  { label: "New York", value: "New York" },
-                  { label: "London", value: "London" },
-                  { label: "Paris", value: "Paris" },
-                  { label: "Tokyo", value: "Tokyo" },
-                  { label: "Los Angeles", value: "Los Angeles" },
-                ]}
+              <GooglePlacesAutocomplete
+                selectProps={{
+                  styles: {
+                    control: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: "#171717", // Dark background for the input
+                      borderColor: state.isFocused ? "#262626" : "#262626", // Consistent border color
+                      color: "#FFFFFF", // Set text color to white
+                      boxShadow: state.isFocused ? "none" : provided.boxShadow, // Remove boxShadow on focus
+                      "&:hover": {
+                        borderColor: "#262626", // Maintain border color on hover
+                      },
+                      // Apply additional styles to ensure text color and remove outline
+                    }),
+                    input: (provided) => ({
+                      ...provided,
+                      color: "#FFFFFF", // This ensures the text inside the input is white
+                      "&:focus": {
+                        outline: "none", // Remove outline on focus
+                      },
+                    }),
+                    singleValue: (provided) => ({
+                      ...provided,
+                      color: "#FFFFFF", // This ensures the text inside the input is white
+                    }),
+                    menu: (provided) => ({
+                      ...provided,
+                      backgroundColor: "#171717", // Dark background for the dropdown
+                    }),
+                    option: (provided, state) => ({
+                      ...provided,
+                      backgroundColor: state.isSelected ? "#27272a" : "#171717", // Different background if option is selected
+                      color: "#FFFFFF", // Text color for options
+                      "&:hover": {
+                        backgroundColor: "#27272a", // Background color on hover
+                      },
+                    }),
+                  },
+                }}
+                apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
               />
 
               <Select>
