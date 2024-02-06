@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as React from "react";
 import {
   Select,
@@ -12,6 +12,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
+import { AutoComplete } from "~/components/autocomplete";
 import { Button } from "~/components/ui/button";
 import { DateTimePicker } from "~/components/ui/date-time-picker";
 import { Input } from "~/components/ui/input";
@@ -21,8 +22,9 @@ export default function Organizatorji() {
   const [page, setPage] = useState(0);
 
   const [name, setName] = useState("");
-  const [start, setStart] = useState(new Date());
+  const [start, setStart] = useState<Date>(new Date());
   const [end, setEnd] = useState(new Date());
+
   const [location, setLocation] = useState("");
 
   // Custom function to handle date or undefined for start date
@@ -42,7 +44,6 @@ export default function Organizatorji() {
       <div className="w-1/3 rounded-2xl bg-neutral-900 p-6">
         {page === 0 && (
           <>
-            {" "}
             <h1 className="mb-4 text-center text-2xl font-bold">
               Kaj, Kdaj, Kje?
             </h1>
@@ -65,10 +66,15 @@ export default function Organizatorji() {
               <Label>Lokacija</Label>
               <Label className="mb-1">Vrsta dogodka</Label>
 
-              <Input
-                id="lokacija"
-                value={location}
-                onChange={(e) => setLocation(e.target.value)}
+              <AutoComplete
+                emptyMessage="Ni rezultatov"
+                options={[
+                  { label: "New York", value: "New York" },
+                  { label: "London", value: "London" },
+                  { label: "Paris", value: "Paris" },
+                  { label: "Tokyo", value: "Tokyo" },
+                  { label: "Los Angeles", value: "Los Angeles" },
+                ]}
               />
 
               <Select>
