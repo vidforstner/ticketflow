@@ -27,7 +27,7 @@ export function DateTimePicker({
         <Button
           variant={"outline"}
           className={cn(
-            "justify-start text-left font-normal",
+            "w-full justify-start text-left font-normal",
             !date && "text-muted-foreground",
           )}
         >
@@ -37,12 +37,12 @@ export function DateTimePicker({
       </PopoverTrigger>
       <PopoverContent className="w-auto border-neutral-700 bg-neutral-900 p-0 text-neutral-100">
         <Calendar
-          fromDate={new Date()}
           mode="single"
           selected={date}
           onSelect={setDate}
           initialFocus
           weekStartsOn={1}
+          disabled={(day) => day < new Date()}
         />
         <div className="border-t border-neutral-600 p-3">
           <TimePicker setDate={setDate} date={date} />
