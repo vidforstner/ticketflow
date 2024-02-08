@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MoreHorizontal } from "lucide-react";
+import { MoreHorizontal, PlusIcon, XIcon } from "lucide-react";
 import moment from "moment";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { useFieldArray, useForm } from "react-hook-form";
@@ -52,6 +52,8 @@ export default function Organizatorji() {
   const [ticketDetails, setTicketDetails] = useState("");
   const [ticketAmount, setTicketAmount] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
+
+  const [isAddingTicket, setIsAddingTicket] = useState(false);
 
   const ticketSchema = z.object({
     name: z.string().min(2).max(50),
@@ -188,42 +190,41 @@ export default function Organizatorji() {
                             styles: {
                               control: (provided, state) => ({
                                 ...provided,
-                                backgroundColor: "#171717", // Dark background for the input
+                                backgroundColor: "#171717",
                                 borderColor: state.isFocused
                                   ? "#262626"
-                                  : "#262626", // Consistent border color
-                                color: "#FFFFFF", // Set text color to white
+                                  : "#262626",
+                                color: "#FFFFFF",
                                 boxShadow: state.isFocused
                                   ? "none"
-                                  : provided.boxShadow, // Remove boxShadow on focus
+                                  : provided.boxShadow,
                                 "&:hover": {
-                                  borderColor: "#262626", // Maintain border color on hover
+                                  borderColor: "#262626",
                                 },
-                                // Apply additional styles to ensure text color and remove outline
                               }),
                               input: (provided) => ({
                                 ...provided,
-                                color: "#FFFFFF", // This ensures the text inside the input is white
+                                color: "#FFFFFF",
                                 "&:focus": {
-                                  outline: "none", // Remove outline on focus
+                                  outline: "none",
                                 },
                               }),
                               singleValue: (provided) => ({
                                 ...provided,
-                                color: "#FFFFFF", // This ensures the text inside the input is white
+                                color: "#FFFFFF",
                               }),
                               menu: (provided) => ({
                                 ...provided,
-                                backgroundColor: "#171717", // Dark background for the dropdown
+                                backgroundColor: "#171717",
                               }),
                               option: (provided, state) => ({
                                 ...provided,
                                 backgroundColor: state.isSelected
                                   ? "#27272a"
-                                  : "#171717", // Different background if option is selected
-                                color: "#FFFFFF", // Text color for options
+                                  : "#171717",
+                                color: "#FFFFFF",
                                 "&:hover": {
-                                  backgroundColor: "#27272a", // Background color on hover
+                                  backgroundColor: "#27272a",
                                 },
                               }),
                             },
@@ -356,81 +357,110 @@ export default function Organizatorji() {
               </Table>
 
               <div className="mt-12 rounded-2xl border border-neutral-800 p-4 ">
-                <h2 className="mb-3 text-xl font-semibold">Nova vstopnica</h2>
-                <Label htmlFor="ticketName">Ime vstopnice</Label>
-                <Input
-                  id="ticketName"
-                  className="mb-4"
-                  value={ticketName}
-                  onChange={(e) => setTicketName(e.target.value)}
-                />
+                <div className="flex ">
+                  <h2 className="my-auto grow text-xl font-semibold">
+                    Nova vstopnica
+                  </h2>
+                  {fields.length > 0 &&
+                    (isAddingTicket ? (
+                      <button
+                        onClick={() => setIsAddingTicket(false)}
+                        className="flex items-center justify-center"
+                      >
+                        <XIcon className="h-5 w-5" />
+                      </button>
+                    ) : (
+                      <Button
+                        variant="secondary"
+                        className="flex items-center justify-center"
+                        onClick={() => setIsAddingTicket(true)}
+                      >
+                        Dodaj
+                        <PlusIcon className="ml-2 h-5 w-5" />
+                      </Button>
+                    ))}
+                </div>
 
-                <div className="mb-4 grid grid-cols-2 gap-x-4">
-                  <Label className="mb-1">Cena</Label>
-                  <Label className="mb-1">Količina</Label>
+                {(isAddingTicket || fields.length === 0) && (
+                  <>
+                    <Label htmlFor="ticketName">Ime vstopnice</Label>
+                    <Input
+                      id="ticketName"
+                      className="mb-4"
+                      value={ticketName}
+                      onChange={(e) => setTicketName(e.target.value)}
+                    />
 
-                  <Input
-                    id="ticketName"
-                    className="mb-4"
-                    type="number"
-                    value={ticketPrice}
-                    onChange={(e) => setTicketPrice(Number(e.target.value))}
-                  />
+                    <div className="mb-4 grid grid-cols-2 gap-x-4">
+                      <Label className="mb-1">Cena</Label>
+                      <Label className="mb-1">Količina</Label>
 
-                  <Input
-                    id="ticketName"
-                    className="mb-4"
-                    type="number"
-                    value={ticketAmount}
-                    onChange={(e) => setTicketAmount(Number(e.target.value))}
-                  />
+                      <Input
+                        id="ticketName"
+                        className="mb-4"
+                        type="number"
+                        value={ticketPrice}
+                        onChange={(e) => setTicketPrice(Number(e.target.value))}
+                      />
 
-                  <Label>Začetek Prodaje</Label>
-                  <Label>Konec Prodaje</Label>
+                      <Input
+                        id="ticketName"
+                        className="mb-4"
+                        type="number"
+                        value={ticketAmount}
+                        onChange={(e) =>
+                          setTicketAmount(Number(e.target.value))
+                        }
+                      />
 
-                  <DateTimePicker
-                    date={new Date(ticketStart)}
-                    setDate={(date) => setTicketStart(date ?? new Date())}
-                  />
+                      <Label>Začetek Prodaje</Label>
+                      <Label>Konec Prodaje</Label>
 
-                  <DateTimePicker
-                    date={ticketEnd}
-                    setDate={(date) => setTicketEnd(date ?? new Date())}
-                  />
+                      <DateTimePicker
+                        date={new Date(ticketStart)}
+                        setDate={(date) => setTicketStart(date ?? new Date())}
+                      />
 
-                  {(ticketStart.getHours() === 0 ||
-                    ticketEnd.getHours() === 0) && (
-                    <div className="col-span-2 mt-1 text-justify text-sm text-neutral-600">
-                      Čas 00:00 označuje ZAČETEK dneva. Če želiš izbrati KONEC
-                      tega izberi 00:00 naslednjega dne.
+                      <DateTimePicker
+                        date={ticketEnd}
+                        setDate={(date) => setTicketEnd(date ?? new Date())}
+                      />
+
+                      {(ticketStart.getHours() === 0 ||
+                        ticketEnd.getHours() === 0) && (
+                        <div className="col-span-2 mt-1 text-justify text-sm text-neutral-600">
+                          Čas 00:00 označuje ZAČETEK dneva. Če želiš izbrati
+                          KONEC tega izberi 00:00 naslednjega dne.
+                        </div>
+                      )}
                     </div>
-                  )}
-                </div>
 
-                <Label className="mb-1">Opis vstopnice</Label>
-                <Textarea
-                  value={ticketDetails}
-                  onChange={(e) => setTicketDetails(e.target.value)}
-                />
+                    <Label className="mb-1">Opis vstopnice</Label>
+                    <Textarea
+                      value={ticketDetails}
+                      onChange={(e) => setTicketDetails(e.target.value)}
+                    />
 
-                <div className="flex justify-end">
-                  <Button
-                    onClick={() =>
-                      addTicket({
-                        name: ticketName,
-                        amount: ticketAmount,
-                        price: ticketPrice,
-                        start: ticketStart,
-                        end: ticketEnd,
-                        details: ticketDetails,
-                      })
-                    }
-                    variant="secondary"
-                    className="mt-4"
-                  >
-                    Shrani
-                  </Button>
-                </div>
+                    <div className="flex justify-end">
+                      <Button
+                        onClick={() =>
+                          addTicket({
+                            name: ticketName,
+                            amount: ticketAmount,
+                            price: ticketPrice,
+                            start: ticketStart,
+                            end: ticketEnd,
+                            details: ticketDetails,
+                          })
+                        }
+                        variant="secondary"
+                        className="mt-4"
+                      >
+                        Shrani
+                      </Button>
+                    </div>
+                  </>
+                )}
               </div>
             </>
           )}
