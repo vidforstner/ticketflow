@@ -32,6 +32,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { MoreHorizontal } from "lucide-react";
+import moment from "moment";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -341,7 +342,8 @@ export default function Organizatorji() {
                       <TableCell>{field.amount}</TableCell>
                       <TableCell>{field.price}</TableCell>
                       <TableCell className="text-right">
-                        {field.start.toISOString()} - {field.end.toISOString()}
+                        {moment(field.start).format("DD. MM. YYYY, hh:mm")} -{" "}
+                        {moment(field.start).format("DD. MM. YYYY, hh:mm")}
                       </TableCell>
                       <TableCell>
                         <div className="item-center flex justify-center">
