@@ -11,6 +11,16 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import {
+  Table,
+  TableBody,
+  TableCaption,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { MoreHorizontal } from "lucide-react";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 
 import { Button } from "~/components/ui/button";
@@ -174,6 +184,36 @@ export default function Organizatorji() {
           <>
             <h1 className="mb-4 text-center text-2xl font-bold">Vstopnice</h1>
 
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-[100px]">Ime</TableHead>
+                  <TableHead>Količina</TableHead>
+                  <TableHead>Cena</TableHead>
+                  <TableHead className="text-right">
+                    Razpoložljivost vstopnic
+                  </TableHead>
+                  <TableHead />
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                <TableRow>
+                  <TableCell className="font-medium">INV001</TableCell>
+                  <TableCell>Paid</TableCell>
+                  <TableCell>Credit Card</TableCell>
+                  <TableCell className="text-right">$250.00</TableCell>
+                  <TableCell>
+                    <div className="item-center flex justify-center">
+                      <MoreHorizontal className="h-5 w-5" />
+                    </div>
+                  </TableCell>
+                </TableRow>
+              </TableBody>
+            </Table>
+
+            <h2 className="mt-12 text-center text-xl font-semibold">
+              Nova vstopnica
+            </h2>
             <Label htmlFor="ticketName">Ime vstopnice</Label>
             <Input
               id="ticketName"
@@ -183,107 +223,18 @@ export default function Organizatorji() {
             />
 
             <div className="grid grid-cols-2 gap-x-4">
-              <Label>Začetek</Label>
-              <Label>Konec</Label>
+              <Label>Začetek Prodaje</Label>
+              <Label>Konec Prodaje</Label>
 
               <DateTimePicker date={start} setDate={handleSetStart} />
 
               <DateTimePicker date={end} setDate={handleSetEnd} />
             </div>
-            <div className="mt-4 grid grid-cols-2 gap-x-4">
-              <Label>Lokacija</Label>
-              <Label className="mb-1">Vrsta dogodka</Label>
 
-              <GooglePlacesAutocomplete
-                selectProps={{
-                  styles: {
-                    control: (provided, state) => ({
-                      ...provided,
-                      backgroundColor: "#171717", // Dark background for the input
-                      borderColor: state.isFocused ? "#262626" : "#262626", // Consistent border color
-                      color: "#FFFFFF", // Set text color to white
-                      boxShadow: state.isFocused ? "none" : provided.boxShadow, // Remove boxShadow on focus
-                      "&:hover": {
-                        borderColor: "#262626", // Maintain border color on hover
-                      },
-                      // Apply additional styles to ensure text color and remove outline
-                    }),
-                    input: (provided) => ({
-                      ...provided,
-                      color: "#FFFFFF", // This ensures the text inside the input is white
-                      "&:focus": {
-                        outline: "none", // Remove outline on focus
-                      },
-                    }),
-                    singleValue: (provided) => ({
-                      ...provided,
-                      color: "#FFFFFF", // This ensures the text inside the input is white
-                    }),
-                    menu: (provided) => ({
-                      ...provided,
-                      backgroundColor: "#171717", // Dark background for the dropdown
-                    }),
-                    option: (provided, state) => ({
-                      ...provided,
-                      backgroundColor: state.isSelected ? "#27272a" : "#171717", // Different background if option is selected
-                      color: "#FFFFFF", // Text color for options
-                      "&:hover": {
-                        backgroundColor: "#27272a", // Background color on hover
-                      },
-                    }),
-                  },
-                }}
-                apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
-              />
-
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="Izberi vrsto dogodka" />
-                </SelectTrigger>
-                <SelectContent className="border border-neutral-800">
-                  <SelectGroup>
-                    <SelectItem value="koncert">Koncert</SelectItem>
-                    <SelectItem value="festival">Festival</SelectItem>
-                    <SelectItem value="DJ">DJ Party</SelectItem>
-                    <SelectItem value="zabava">Zabava</SelectItem>
-                  </SelectGroup>
-                  <SelectSeparator />
-                  <SelectGroup>
-                    <SelectItem value="razstava">Razstava</SelectItem>
-                    <SelectItem value="film">Film</SelectItem>
-                    <SelectItem value="predstava">Predstava</SelectItem>
-                    <SelectItem value="stand-up">Stand-up komedija</SelectItem>
-                    <SelectItem value="kvizi">Kvizi</SelectItem>
-                  </SelectGroup>
-                  <SelectSeparator />
-                  <SelectGroup>
-                    <SelectItem value="konferenca">Konferenca</SelectItem>
-                    <SelectItem value="seminar">Seminar</SelectItem>
-                  </SelectGroup>
-                  <SelectSeparator />
-                  <SelectGroup>
-                    <SelectItem value="kolesarstvo">Kolesarstvo</SelectItem>
-                    <SelectItem value="kosarka">Košarka</SelectItem>
-                    <SelectItem value="paintball">Paintball</SelectItem>
-                    <SelectItem value="rafting">Rafting</SelectItem>
-                    <SelectItem value="tek-maraton">Tek / Maraton</SelectItem>
-                    <SelectItem value="turnirji">Turnirji</SelectItem>
-                    <SelectItem value="mma">MMA</SelectItem>
-                  </SelectGroup>
-                  <SelectSeparator />
-                  <SelectGroup>
-                    <SelectItem value="networking">Networking</SelectItem>
-                    <SelectItem value="delavnica">Delavnica</SelectItem>
-                    <SelectItem value="ostalo">Ostalo</SelectItem>
-                  </SelectGroup>
-                  <SelectSeparator />
-                  <SelectGroup>
-                    <SelectItem value="privatni-dogodek">
-                      Privatni dogodek
-                    </SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
+            <div className="flex justify-end">
+              <Button variant="secondary" className="mt-4">
+                Shrani
+              </Button>
             </div>
           </>
         )}

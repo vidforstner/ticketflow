@@ -42,6 +42,7 @@ export function DateTimePicker({
           selected={date}
           onSelect={setDate}
           initialFocus
+          weekStartsOn={1}
         />
         <div className="border-t border-neutral-600 p-3">
           <TimePicker setDate={setDate} date={date} />
