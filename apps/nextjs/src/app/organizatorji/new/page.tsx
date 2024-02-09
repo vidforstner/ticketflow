@@ -4,6 +4,20 @@ import { useState } from "react";
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuShortcut,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import {
   Form,
   FormControl,
   FormField,
@@ -347,9 +361,19 @@ export default function Organizatorji() {
                         {moment(field.start).format("DD. MM. YYYY, hh:mm")}
                       </TableCell>
                       <TableCell>
-                        <div className="item-center flex justify-center">
-                          <MoreHorizontal className="h-4 w-4" />
-                        </div>
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <button className="item-center flex justify-center">
+                              <MoreHorizontal className="h-4 w-4" />
+                            </button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent className="w-56">
+                            <DropdownMenuGroup>
+                              <DropdownMenuItem>Izbriši</DropdownMenuItem>
+                              <DropdownMenuItem>Uredi</DropdownMenuItem>
+                            </DropdownMenuGroup>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
                       </TableCell>
                     </TableRow>
                   ))}
