@@ -8,13 +8,6 @@ import {
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuSeparator,
-  DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
@@ -99,7 +92,7 @@ export default function Organizatorji() {
     },
   });
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "tickets",
   });
@@ -351,7 +344,7 @@ export default function Organizatorji() {
                   </TableRow>
                 </TableHeader>
                 <TableBody>
-                  {fields.map((field) => (
+                  {fields.map((field, index) => (
                     <TableRow key={field.id}>
                       <TableCell>{field.name}</TableCell>
                       <TableCell>{field.amount}</TableCell>
@@ -369,8 +362,9 @@ export default function Organizatorji() {
                           </DropdownMenuTrigger>
                           <DropdownMenuContent className="w-56">
                             <DropdownMenuGroup>
-                              <DropdownMenuItem>Izbriši</DropdownMenuItem>
-                              <DropdownMenuItem>Uredi</DropdownMenuItem>
+                              <DropdownMenuItem onClick={() => remove(index)}>
+                                Izbriši
+                              </DropdownMenuItem>
                             </DropdownMenuGroup>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -467,7 +461,14 @@ export default function Organizatorji() {
 
                     <div className="flex justify-end">
                       <Button
-                        onClick={() =>
+                        onClick={() => {
+                          setTicketName("");
+                          setTicketAmount(0);
+                          setTicketPrice(0);
+                          setTicketStart(new Date());
+                          setTicketEnd(new Date());
+                          setTicketDetails("");
+
                           addTicket({
                             name: ticketName,
                             amount: ticketAmount,
@@ -475,8 +476,8 @@ export default function Organizatorji() {
                             start: ticketStart,
                             end: ticketEnd,
                             details: ticketDetails,
-                          })
-                        }
+                          });
+                        }}
                         variant="secondary"
                         className="mt-4"
                       >
