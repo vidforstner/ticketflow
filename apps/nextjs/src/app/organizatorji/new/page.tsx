@@ -192,7 +192,8 @@ export default function Organizatorji() {
                           selectProps={{
                             value: field.value,
                             onChange: (value) => {
-                              field.onChange(value);
+                              console.log(value);
+                              field.onChange(value?.value.place_id);
                             },
                             styles: {
                               control: (provided, state) => ({
