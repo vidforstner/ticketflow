@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import * as React from "react";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,6 +14,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -46,6 +48,7 @@ import { z } from "zod";
 
 import { DateTimePicker } from "~/components/ui/date-time-picker";
 import { Label } from "~/components/ui/label";
+import { UploadButton } from "~/utils/uploadthing";
 
 export default function Organizatorji() {
   const [page, setPage] = useState(0);
@@ -59,6 +62,8 @@ export default function Organizatorji() {
   const [ticketDetails, setTicketDetails] = useState("");
   const [ticketAmount, setTicketAmount] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
+
+  const [preview, setPreview] = useState("");
 
   const [isAddingTicket, setIsAddingTicket] = useState(false);
 
@@ -78,6 +83,7 @@ export default function Organizatorji() {
     location: z.string(),
     type: z.string(),
     tickets: z.array(ticketSchema),
+    imageUrl: z.string().optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -89,6 +95,7 @@ export default function Organizatorji() {
       location: "",
       type: "",
       tickets: [],
+      imageUrl: undefined,
     },
   });
 
@@ -488,6 +495,21 @@ export default function Organizatorji() {
                   </>
                 )}
               </div>
+            </>
+          )}
+
+          {page === 2 && (
+            <>
+              <h1 className="mb-4 text-center text-2xl font-bold">
+                Podrobnosti
+              </h1>
+
+              <UploadButton
+                onClientUploadComplete={(res) => {
+                  console.log(res[0]?.url);
+                }}
+                endpoint="imageUploader"
+              />
             </>
           )}
 

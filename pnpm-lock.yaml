@@ -168,6 +168,9 @@ importers:
       '@hookform/resolvers':
         specifier: ^3.3.4
         version: 3.3.4(react-hook-form@7.49.3)
+      '@radix-ui/react-avatar':
+        specifier: ^1.0.4
+        version: 1.0.4(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
       '@radix-ui/react-dialog':
         specifier: ^1.0.5
         version: 1.0.5(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
@@ -213,6 +216,9 @@ importers:
       '@trpc/server':
         specifier: next
         version: 11.0.0-next-beta.242
+      '@uploadthing/react':
+        specifier: ^6.2.2
+        version: 6.2.2(next@14.1.0)(react@18.2.0)(uploadthing@6.3.3)
       class-variance-authority:
         specifier: ^0.7.0
         version: 0.7.0
@@ -273,6 +279,9 @@ importers:
       tailwindcss-animate:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.1)
+      uploadthing:
+        specifier: ^6.3.3
+        version: 6.3.3
       zod:
         specifier: ^3.22.4
         version: 3.22.4
@@ -3136,6 +3145,30 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
+  /@radix-ui/react-avatar@1.0.4(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-kVK2K7ZD3wwj3qhle0ElXhOjbezIgyl2hVvgwfIdexL3rN6zJmy5AqqIf+D31lxVppdzV8CjAfZ6PklkmInZLw==}
+    peerDependencies:
+      '@types/react': '*'
+      '@types/react-dom': '*'
+      react: ^16.8 || ^17.0 || ^18.0
+      react-dom: ^16.8 || ^17.0 || ^18.0
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
+      '@types/react-dom':
+        optional: true
+    dependencies:
+      '@babel/runtime': 7.23.9
+      '@radix-ui/react-context': 1.0.1(@types/react@18.2.48)(react@18.2.0)
+      '@radix-ui/react-primitive': 1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0)
+      '@radix-ui/react-use-callback-ref': 1.0.1(@types/react@18.2.48)(react@18.2.0)
+      '@radix-ui/react-use-layout-effect': 1.0.1(@types/react@18.2.48)(react@18.2.0)
+      '@types/react': 18.2.48
+      '@types/react-dom': 18.2.18
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /@radix-ui/react-collection@1.0.3(@types/react-dom@18.2.18)(@types/react@18.2.48)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-3SzW+0PW7yBBoQlT8wNcGtaxaD0XSu0uLUFgrtHY08Acx05TaHaOmVLR73c0j/cqpDy53KBMO7s0dx2wmOIDIA==}
     peerDependencies:
@@ -4921,6 +4954,51 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
+  /@uploadthing/dropzone@0.1.1:
+    resolution: {integrity: sha512-ohlnFQfNr/UmImfipVo4uiBj1HQL7dp/sWBD96iAajc6RaQuYnHATGaSaISpCjZTeoLkksuu4/LR8vU9nSzpvQ==}
+    dependencies:
+      attr-accept: 2.2.2
+      file-selector: 0.6.0
+    dev: false
+
+  /@uploadthing/mime-types@0.2.2:
+    resolution: {integrity: sha512-ZUo1JHOPPMZDsUw1mOhhVDIvJGlsjj6T0xJ/YJtulyJwL43S9B5pxg1cHcRuTEgjaxj7B55jiqQ6r9mDrrjH9A==}
+    dev: false
+
+  /@uploadthing/react@6.2.2(next@14.1.0)(react@18.2.0)(uploadthing@6.3.3):
+    resolution: {integrity: sha512-fDfVooLTbC5/FM1o/chPDf5i8DRxCOeRSuRl0R6yh/jIHTdDO2kwXeM5DTaBazJmaEabh5GB+I9Rwg8nU0QdVA==}
+    peerDependencies:
+      next: '*'
+      react: ^17.0.2 || ^18.0.0
+      uploadthing: ^6.0.0
+    peerDependenciesMeta:
+      next:
+        optional: true
+    dependencies:
+      '@uploadthing/dropzone': 0.1.1
+      '@uploadthing/shared': 6.2.1(@uploadthing/mime-types@0.2.2)
+      attr-accept: 2.2.2
+      file-selector: 0.6.0
+      next: 14.1.0(react-dom@18.2.0)(react@18.2.0)
+      react: 18.2.0
+      tailwind-merge: 1.14.0
+      uploadthing: 6.3.3
+    transitivePeerDependencies:
+      - '@uploadthing/mime-types'
+    dev: false
+
+  /@uploadthing/shared@6.2.1(@uploadthing/mime-types@0.2.2):
+    resolution: {integrity: sha512-g/BHzRDuz7f97lEO4VR6PPIQ61YDp9sZWbohI1qi/Nts+bL6it1PyBKyQXIf9glhtfGoFO9Izb1jayO7wmxJkw==}
+    peerDependencies:
+      '@uploadthing/mime-types': ^0.2.2
+    peerDependenciesMeta:
+      '@uploadthing/mime-types':
+        optional: true
+    dependencies:
+      '@uploadthing/mime-types': 0.2.2
+      std-env: 3.7.0
+    dev: false
+
   /@urql/core@2.3.6(graphql@15.8.0):
     resolution: {integrity: sha512-PUxhtBh7/8167HJK6WqBv6Z0piuiaZHQGYbhwpNL9aIQmLROPEdaUYkY4wh45wPQXcTpnd11l0q3Pw+TI11pdw==}
     peerDependencies:
@@ -5285,6 +5363,11 @@ packages:
   /at-least-node@1.0.0:
     resolution: {integrity: sha512-+q/t7Ekv1EDY2l6Gda6LLiX14rU9TV20Wa3ofeQmwPFZbOMo9DXrLbOjFaaclkXKWidIaopwAObQDqwWtGUjqg==}
     engines: {node: '>= 4.0.0'}
+    dev: false
+
+  /attr-accept@2.2.2:
+    resolution: {integrity: sha512-7prDjvt9HmqiZ0cl5CRjtS84sEyhsHP2coDkaZKRKVfCDo9s7iw7ChVmar78Gu9pC4SoR/28wFu/G5JJhTnqEg==}
+    engines: {node: '>=4'}
     dev: false
 
   /autoprefixer@10.4.17(postcss@8.4.33):
@@ -6018,6 +6101,11 @@ packages:
       utils-merge: 1.0.1
     transitivePeerDependencies:
       - supports-color
+    dev: false
+
+  /consola@3.2.3:
+    resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
+    engines: {node: ^14.18.0 || >=16.10.0}
     dev: false
 
   /constant-case@2.0.0:
@@ -7355,6 +7443,13 @@ packages:
     engines: {node: ^10.12.0 || >=12.0.0}
     dependencies:
       flat-cache: 3.2.0
+
+  /file-selector@0.6.0:
+    resolution: {integrity: sha512-QlZ5yJC0VxHxQQsQhXvBaC7VRJ2uaxTf+Tfpu4Z/OcVQJVpZO+DGU0rkoVW5ce2SccxugvpBJoMvUs59iILYdw==}
+    engines: {node: '>= 12'}
+    dependencies:
+      tslib: 2.6.2
+    dev: false
 
   /fill-range@7.0.1:
     resolution: {integrity: sha512-qOo9F+dMUmC2Lcb4BbVvnKJxTPjCm+RRpe4gDuGrzkL7mEVl/djYSu2OdQ2Pa302N4oqkSg9ir6jaLWJ2USVpQ==}
@@ -11664,6 +11759,10 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
+  /std-env@3.7.0:
+    resolution: {integrity: sha512-JPbdCEQLj1w5GilpiHAx3qJvFndqybBysA3qUOnznweH4QbNYUsW/ea8QzSrnh0vNsezMMw5bcVool8lM0gwzg==}
+    dev: false
+
   /stop-iteration-iterator@1.0.0:
     resolution: {integrity: sha512-iCGQj+0l0HOdZ2AEeBADlsRC+vsnDsZsbdSiH1yNSjcfKM7fdpCMfqAL/dwF5BLiw/XhRft/Wax6zQbhq2BcjQ==}
     engines: {node: '>= 0.4'}
@@ -11923,6 +12022,10 @@ packages:
     dependencies:
       react: 18.2.0
       use-sync-external-store: 1.2.0(react@18.2.0)
+    dev: false
+
+  /tailwind-merge@1.14.0:
+    resolution: {integrity: sha512-3mFKyCo/MBcgyOTlrY8T7odzZFx+w+qKSMAmdFzRvqBfLlSigU6TZnlFHK0lkMwj9Bj8OYU+9yW9lmGuS0QEnQ==}
     dev: false
 
   /tailwind-merge@2.2.1:
@@ -12472,6 +12575,16 @@ packages:
       registry-auth-token: 3.3.2
       registry-url: 3.1.0
     dev: true
+
+  /uploadthing@6.3.3:
+    resolution: {integrity: sha512-YYHgh6YUKNySRW6P6FrCjrbs3TUxydtRzpL4mmhTwYoaP30gc0Uf9LWygPl4bSQJ/1zkBmdSBbZpYdg4VV/NJw==}
+    engines: {node: '>=18.13.0'}
+    dependencies:
+      '@uploadthing/mime-types': 0.2.2
+      '@uploadthing/shared': 6.2.1(@uploadthing/mime-types@0.2.2)
+      consola: 3.2.3
+      std-env: 3.7.0
+    dev: false
 
   /upper-case-first@1.1.2:
     resolution: {integrity: sha512-wINKYvI3Db8dtjikdAqoBbZoP6Q+PZUyfMR7pmwHzjC2quzSkUq5DmPrTtPEqHaz8AGtmsB4TqwapMTM1QAQOQ==}
