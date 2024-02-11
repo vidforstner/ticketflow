@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import * as React from "react";
+import Image from "next/image";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
@@ -63,8 +64,6 @@ export default function Organizatorji() {
   const [ticketAmount, setTicketAmount] = useState(0);
   const [ticketPrice, setTicketPrice] = useState(0);
 
-  const [preview, setPreview] = useState("");
-
   const [isAddingTicket, setIsAddingTicket] = useState(false);
 
   const ticketSchema = z.object({
@@ -84,6 +83,12 @@ export default function Organizatorji() {
     type: z.string(),
     tickets: z.array(ticketSchema),
     imageUrl: z.string().optional(),
+    phone: z.string().optional(),
+    email: z.string().optional(),
+    website: z.string().optional(),
+    facebook: z.string().optional(),
+    instagram: z.string().optional(),
+    youtube: z.string().optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -96,6 +101,12 @@ export default function Organizatorji() {
       type: "",
       tickets: [],
       imageUrl: undefined,
+      phone: undefined,
+      email: undefined,
+      website: undefined,
+      facebook: undefined,
+      instagram: undefined,
+      youtube: undefined,
     },
   });
 
@@ -504,12 +515,126 @@ export default function Organizatorji() {
                 Podrobnosti
               </h1>
 
-              <UploadButton
-                onClientUploadComplete={(res) => {
-                  console.log(res[0]?.url);
-                }}
-                endpoint="imageUploader"
-              />
+              <div className="grid grid-cols-2 gap-x-4">
+                <div>
+                  <div className="mb-1 text-center text-sm font-semibold">
+                    Cover slika dogodka
+                  </div>
+                  <div className="mx-auto flex aspect-[9/12] max-w-[300px] items-center justify-center rounded-xl border border-neutral-800">
+                    {form.getValues("imageUrl") ? (
+                      <Image
+                        alt="poster"
+                        src={form.getValues("imageUrl") ?? ""}
+                        objectFit="cover"
+                        fill
+                      />
+                    ) : (
+                      <UploadButton
+                        content={{
+                          button: "Naloži sliko",
+                        }}
+                        appearance={{
+                          button: {
+                            background: "white",
+                            color: "black",
+                            padding: "10px 20px",
+                          },
+                        }}
+                        onClientUploadComplete={(res) => {
+                          form.setValue("imageUrl", res[0]?.url);
+                        }}
+                        endpoint="imageUploader"
+                      />
+                    )}
+                  </div>
+                </div>
+
+                <div className="my-auto">
+                  <FormField
+                    control={form.control}
+                    name="phone"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Telefon</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Email</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="website"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Spletna stran</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="facebook"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Facebook</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="instagram"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Instagram</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+                  <FormField
+                    control={form.control}
+                    name="youtube"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Youtube</FormLabel>
+                        <FormControl>
+                          <Input {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+              </div>
             </>
           )}
 
@@ -522,7 +647,11 @@ export default function Organizatorji() {
                 Submit
               </Button>
             ) : (
-              <Button onClick={() => setPage(page + 1)} variant="secondary">
+              <Button
+                onClick={() => setPage(page + 1)}
+                type="button"
+                variant="secondary"
+              >
                 Naprej
               </Button>
             )}
