@@ -41,6 +41,7 @@ import {
 } from "@/components/ui/table";
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Editor } from "@tinymce/tinymce-react";
 import { MoreHorizontal, PlusIcon, XIcon } from "lucide-react";
 import moment from "moment";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
@@ -66,6 +67,9 @@ export default function Organizatorji() {
 
   const [isAddingTicket, setIsAddingTicket] = useState(false);
 
+  const [imageUrl, setImageUrl] = useState<string | undefined>(undefined);
+  const [isUploading, setIsUploading] = useState(false);
+
   const ticketSchema = z.object({
     name: z.string().min(2).max(50),
     amount: z.number().min(1),
@@ -89,6 +93,7 @@ export default function Organizatorji() {
     facebook: z.string().optional(),
     instagram: z.string().optional(),
     youtube: z.string().optional(),
+    description: z.string().optional(),
   });
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -107,6 +112,7 @@ export default function Organizatorji() {
       facebook: undefined,
       instagram: undefined,
       youtube: undefined,
+      description: undefined,
     },
   });
 
@@ -208,10 +214,14 @@ export default function Organizatorji() {
                             region: "SI",
                           }}
                           selectProps={{
+                            //@ts-expect-error - I don't know how to fix this
                             value: field.value,
                             onChange: (value) => {
                               console.log(value);
-                              field.onChange(value?.value.place_id);
+                              field.onChange(
+                                (value as { value: { place_id: string } })
+                                  ?.value.place_id,
+                              );
                             },
                             styles: {
                               control: (provided, state) => ({
@@ -520,14 +530,29 @@ export default function Organizatorji() {
                   <div className="mb-1 text-center text-sm font-semibold">
                     Cover slika dogodka
                   </div>
-                  <div className="mx-auto flex aspect-[9/12] max-w-[300px] items-center justify-center rounded-xl border border-neutral-800">
-                    {form.getValues("imageUrl") ? (
-                      <Image
-                        alt="poster"
-                        src={form.getValues("imageUrl") ?? ""}
-                        objectFit="cover"
-                        fill
-                      />
+                  <div className="relative mx-auto flex aspect-[9/12] max-w-[300px] items-center justify-center rounded-xl border border-neutral-800">
+                    {imageUrl ? (
+                      <>
+                        <Image
+                          alt="poster"
+                          src={form.getValues("imageUrl") ?? ""}
+                          objectFit="cover"
+                          fill
+                          className="rounded-xl"
+                        />
+
+                        <button
+                          onClick={() => {
+                            form.setValue("imageUrl", undefined);
+                            setImageUrl(undefined);
+                          }}
+                          className="absolute right-2 top-2 rounded-full bg-neutral-800 p-1"
+                        >
+                          <XIcon className="h-4 w-4" />
+                        </button>
+                      </>
+                    ) : isUploading ? (
+                      <>up</>
                     ) : (
                       <UploadButton
                         content={{
@@ -540,8 +565,11 @@ export default function Organizatorji() {
                             padding: "10px 20px",
                           },
                         }}
+                        onUploadBegin={() => setIsUploading(true)}
                         onClientUploadComplete={(res) => {
                           form.setValue("imageUrl", res[0]?.url);
+                          setImageUrl(res[0]?.url);
+                          setIsUploading(false);
                         }}
                         endpoint="imageUploader"
                       />
@@ -635,6 +663,23 @@ export default function Organizatorji() {
                   />
                 </div>
               </div>
+
+              <Editor
+                apiKey="lk6tlidem9fol6xo4umatbbvnd4z5gedth7s116m3p6o2bis"
+                init={{
+                  content_css: "tinymce-5-dark",
+                  skin: "oxide-dark",
+                  plugins:
+                    "anchor autolink charmap codesample emoticons image link lists media searchreplace table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed linkchecker a11ychecker tinymcespellchecker permanentpen powerpaste advtable advcode editimage advtemplate mentions tableofcontents footnotes mergetags autocorrect typography inlinecss",
+                  toolbar:
+                    "undo redo | blocks fontsize | bold italic underline strikethrough | link image media table mergetags |  a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
+                }}
+                initialValue=""
+                onEditorChange={(content: string) => {
+                  form.setValue("description", content);
+                }}
+                value={form.getValues("description")}
+              />
             </>
           )}
 
