@@ -17,7 +17,6 @@ import {
   FormField,
   FormItem,
   FormLabel,
-  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import {
@@ -81,10 +80,10 @@ export default function Organizatorji() {
     start: z.date(),
     end: z.date(),
     location: z.object({
-      id: z.string(),
-      name: z.string(),
+      label: z.string(),
+      value: z.any(),
     }),
-    type: z.string(),
+    type: z.string().min(2).max(50),
     tickets: z.array(ticketSchema),
     imageUrl: z.string().optional(),
     phone: z.string().optional(),
@@ -154,7 +153,6 @@ export default function Organizatorji() {
                 <FormControl>
                   <Input {...field} />
                 </FormControl>
-                <FormMessage />
               </FormItem>
             )}
           />
@@ -176,7 +174,6 @@ export default function Organizatorji() {
                       />
                     </div>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -197,7 +194,6 @@ export default function Organizatorji() {
                       />
                     </div>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -219,8 +215,7 @@ export default function Organizatorji() {
                         onChange: (value) => {
                           console.log(value);
                           field.onChange({
-                            id: value.value.place_id,
-                            name: value.label,
+                            value,
                           });
                         },
                         styles: {
@@ -268,7 +263,6 @@ export default function Organizatorji() {
                       apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
                     />
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -338,7 +332,6 @@ export default function Organizatorji() {
                       </SelectContent>
                     </Select>
                   </FormControl>
-                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -569,7 +562,6 @@ export default function Organizatorji() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -583,7 +575,6 @@ export default function Organizatorji() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -597,7 +588,6 @@ export default function Organizatorji() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -611,7 +601,6 @@ export default function Organizatorji() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -625,7 +614,6 @@ export default function Organizatorji() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -639,7 +627,6 @@ export default function Organizatorji() {
                     <FormControl>
                       <Input {...field} />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
