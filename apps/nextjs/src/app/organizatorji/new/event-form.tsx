@@ -347,7 +347,7 @@ export default function EventForm() {
                     )}
                   />
                 </TableCell>
-                <TableCell className="max-w-[100px] align-top">
+                <TableCell className="max-w-[50px] align-top">
                   <FormField
                     control={form.control}
                     name={`tickets.${index}.amount`}
@@ -366,7 +366,7 @@ export default function EventForm() {
                     )}
                   />
                 </TableCell>
-                <TableCell className="max-w-[100px] align-top">
+                <TableCell className="max-w-[50px] align-top">
                   <FormField
                     control={form.control}
                     name={`tickets.${index}.price`}
@@ -389,7 +389,7 @@ export default function EventForm() {
                     )}
                   />
                 </TableCell>
-                <TableCell className="max-w-[18w0px] align-top">
+                <TableCell className="max-w-[180px] align-top">
                   <FormField
                     control={form.control}
                     name={`tickets.${index}.start`}
