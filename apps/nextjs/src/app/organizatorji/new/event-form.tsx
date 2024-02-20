@@ -35,6 +35,7 @@ import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Button } from "~/components/ui/button";
+import { Textarea } from "~/components/ui/textarea";
 
 const eventFormSchema = z.object({
   name: z
@@ -320,8 +321,8 @@ export default function EventForm() {
           <TableHeader>
             <TableRow>
               <TableHead className="min-w-[100px]">Ime</TableHead>
-              <TableHead>Količina</TableHead>
-              <TableHead>Cena (€)</TableHead>
+              <TableHead className="max-w-[100px]">Količina</TableHead>
+              <TableHead className="max-w-[100px]">Cena (€)</TableHead>
               <TableHead>Začetek Prodaje</TableHead>
               <TableHead>Konec Prodaje</TableHead>
               <TableHead className="min-w-[100px]">Opis</TableHead>
@@ -332,7 +333,7 @@ export default function EventForm() {
           <TableBody>
             {fields.map((field, index) => (
               <TableRow key="index">
-                <TableCell className="min-w-[100px] align-top">
+                <TableCell className="max-w-[100px] align-top">
                   <FormField
                     control={form.control}
                     name={`tickets.${index}.name`}
@@ -346,7 +347,7 @@ export default function EventForm() {
                     )}
                   />
                 </TableCell>
-                <TableCell className="align-top">
+                <TableCell className="max-w-[100px] align-top">
                   <FormField
                     control={form.control}
                     name={`tickets.${index}.amount`}
@@ -365,7 +366,7 @@ export default function EventForm() {
                     )}
                   />
                 </TableCell>
-                <TableCell className="align-top">
+                <TableCell className="max-w-[100px] align-top">
                   <FormField
                     control={form.control}
                     name={`tickets.${index}.price`}
@@ -386,16 +387,57 @@ export default function EventForm() {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />{" "}
+                  />
                 </TableCell>
-                <TableCell className="text-right align-top">
-                  <Input />
+                <TableCell className="max-w-[18w0px] align-top">
+                  <FormField
+                    control={form.control}
+                    name={`tickets.${index}.start`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <DateTimePicker
+                            date={field.value}
+                            setDate={(date) => {
+                              field.onChange(date);
+                            }}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
                 </TableCell>
-                <TableCell className="min-w-[100px] text-right align-top">
-                  <Input />
+                <TableCell className="max-w-[180px] align-top">
+                  <FormField
+                    control={form.control}
+                    name={`tickets.${index}.end`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <DateTimePicker
+                            date={field.value}
+                            setDate={(date) => {
+                              field.onChange(date);
+                            }}
+                          />
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
                 </TableCell>
                 <TableCell className="min-w-[100px] align-top">
-                  <Input />
+                  <FormField
+                    control={form.control}
+                    name={`tickets.${index}.details`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Textarea {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
                 </TableCell>
                 <TableCell className="flex items-center justify-center">
                   <Button onClick={() => remove(index)} className="p-3">
