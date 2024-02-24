@@ -14,6 +14,7 @@ model User {
     clerkId String @unique
     email String @unique
     ticketHolder TicketHolder[]
+    eventRole EventRole[]
 }
 
 model Event {
@@ -26,6 +27,20 @@ model Event {
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @default(now())
   ticketTypes    TicketType[]
+  eventRoles     EventRole[]
+}
+
+model EventRole {
+  id String @id @default(cuid())
+  eventId String
+  event Event @relation(fields: [eventId], references: [id])
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  role Role
+  clerkId String  //no clue if this exists within clerk
+
+  @@index([eventId], name: "eventId")
+  @@index([userId], name: "userId")
 }
 
 model TicketType {
@@ -46,5 +61,11 @@ model TicketHolder {
 
     @@index([ticketTypeId], name: "ticketTypeId")
     @@index([userId], name: "userId")
+}
+
+enum Role {
+  OWNER
+  SECURITY
+  ADMIN
 }
 
