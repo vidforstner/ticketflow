@@ -9,27 +9,42 @@ datasource db {
   relationMode      = "prisma"
 }
 
-model Event {
-  id          String       @id @default(cuid())
-  name        String
-  slug        String       @unique
-  imageUrl    String
-  isDeleted   Boolean      @default(false)
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @default(now())
-  tickets    Ticket[]
+model User {
+    id String @id @default(cuid())
+    clerkId String @unique
+    email String @unique
+    ticketHolder TicketHolder[]
 }
 
-model Ticket {
-    id String @id @default(cuid())
+model Event {
+  id             String       @id @default(cuid())
+  organisationId String       @unique
+  name           String
+  slug           String       @unique
+  imageUrl       String
+  isDeleted      Boolean      @default(false)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @default(now())
+  ticketTypes    TicketType[]
+}
 
+model TicketType {
+    id String @id @default(cuid())
     eventId String
     event Event @relation(fields: [eventId], references: [id])
+    ticketHolder TicketHolder[]
 
     @@index([eventId], name: "eventId")    
 }
 
-model User {
-    name String
-    email String @unique
+model TicketHolder {
+    id String @id @default(cuid())
+    ticketTypeId String
+    ticketType TicketType @relation(fields: [ticketTypeId], references: [id])
+    userId String
+    user User @relation(fields: [userId], references: [id])
+
+    @@index([ticketTypeId], name: "ticketTypeId")
+    @@index([userId], name: "userId")
 }
+
