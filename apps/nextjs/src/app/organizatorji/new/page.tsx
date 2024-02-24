@@ -527,7 +527,7 @@ export default function Organizatorji() {
                     </button>
                   </>
                 ) : isUploading ? (
-                  <>up</>
+                  <>uploading</>
                 ) : (
                   <UploadButton
                     content={{
