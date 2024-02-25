@@ -36,7 +36,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
       <div className="fixed top-0 z-50 h-16 w-full bg-black text-sm">
         <div className="container flex h-full items-center">
           <Link href="/" className="mr-8 flex text-xl font-bold">
-            <Ticket className="mr-1 mt-[0.2rem] text-white" size={24} />
+            <Ticket className="mr-1 mt-[0.22rem] text-white" size={24} />
             Ticketflow
           </Link>
 

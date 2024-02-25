@@ -10,54 +10,56 @@ datasource db {
 }
 
 model User {
-    id String @id @default(cuid())
-    clerkId String @unique
-    email String @unique
-    ticketHolder TicketHolder[]
-    eventRole EventRole[]
+    id             String @id @default(cuid())
+    clerkId        String? @unique
+    firstName      String
+    lastName       String
+    email          String @unique
+    ticketHolder   TicketHolder[]
+    eventRole      EventMembership[]
 }
 
 model Event {
-  id             String       @id @default(cuid())
-  organisationId String       @unique
-  name           String
-  slug           String       @unique
-  imageUrl       String
-  isDeleted      Boolean      @default(false)
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @default(now())
-  ticketTypes    TicketType[]
-  eventRoles     EventRole[]
+  id               String       @id @default(cuid())
+  organisationId   String       @unique
+  name             String
+  slug             String       @unique
+  imageUrl         String
+  isDeleted        Boolean      @default(false)
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @default(now())
+  ticketTypes      TicketType[]
+  eventMemberships EventMembership[]
 }
 
-model EventRole {
-  id String @id @default(cuid())
-  eventId String
-  event Event @relation(fields: [eventId], references: [id])
-  userId String
-  user User @relation(fields: [userId], references: [id])
-  role Role
-  clerkId String  //no clue if this exists within clerk
+model EventMembership {
+  id               String @id @default(cuid())
+  eventId          String
+  event            Event @relation(fields: [eventId], references: [id])
+  userId           String
+  user             User @relation(fields: [userId], references: [id])
+  role             Role
+  clerkId          String  //no clue if this exists within clerk
 
   @@index([eventId], name: "eventId")
   @@index([userId], name: "userId")
 }
 
 model TicketType {
-    id String @id @default(cuid())
-    eventId String
-    event Event @relation(fields: [eventId], references: [id])
-    ticketHolder TicketHolder[]
+    id            String @id @default(cuid())
+    eventId       String
+    event         Event @relation(fields: [eventId], references: [id])
+    ticketHolder  TicketHolder[]
 
     @@index([eventId], name: "eventId")    
 }
 
 model TicketHolder {
-    id String @id @default(cuid())
-    ticketTypeId String
-    ticketType TicketType @relation(fields: [ticketTypeId], references: [id])
-    userId String
-    user User @relation(fields: [userId], references: [id])
+    id            String @id @default(cuid())
+    ticketTypeId  String
+    ticketType    TicketType @relation(fields: [ticketTypeId], references: [id])
+    userId        String
+    user          User @relation(fields: [userId], references: [id])
 
     @@index([ticketTypeId], name: "ticketTypeId")
     @@index([userId], name: "userId")
