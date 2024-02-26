@@ -58,9 +58,7 @@ export async function POST(req: Request) {
     if (!user)
       await prisma.user.updateMany({
         where: {
-          OR: evt.data.email_addresses.map((e) => ({
-            email: e.email_address,
-          })),
+          clerkId: evt.data.id,
         },
         data: {
           clerkId: evt.data.id,
