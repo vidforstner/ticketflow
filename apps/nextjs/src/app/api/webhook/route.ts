@@ -26,8 +26,8 @@ export async function POST(req: Request) {
   let evt: WebhookEvent;
   try {
     evt = wh.verify(payloadString, svixHeaders) as WebhookEvent;
-  } catch (_) {
-    console.log("error");
+  } catch (err) {
+    console.log(err);
     return new Response("Error occured", {
       status: 400,
     });
