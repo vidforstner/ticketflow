@@ -11,12 +11,13 @@ datasource db {
 
 model User {
     id             String @id @default(cuid())
-    clerkId        String? @unique
+    clerkId        String @unique
     firstName      String
     lastName       String
     email          String @unique
     ticketHolder   TicketHolder[]
     eventRole      EventMembership[]
+    isDeleted      Boolean @default(false)
 }
 
 model Event {

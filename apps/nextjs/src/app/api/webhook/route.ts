@@ -75,7 +75,7 @@ export async function POST(req: Request) {
         clerkId: evt.data.id,
       },
       data: {
-        clerkId: null,
+        isDeleted: true,
       },
     });
 
