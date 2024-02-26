@@ -38,8 +38,8 @@ export async function POST(req: Request) {
       data: {
         clerkId: evt.data.id,
         email: evt.data.email_addresses[0]?.email_address ?? "",
-        firstName: evt.data.first_name,
-        lastName: evt.data.last_name,
+        firstName: evt.data.first_name ?? "",
+        lastName: evt.data.last_name ?? "",
       },
     });
 
@@ -49,9 +49,9 @@ export async function POST(req: Request) {
         clerkId: evt.data.id,
       },
       data: {
-        email: evt.data.email_addresses[0]?.email_address,
-        firstName: evt.data.first_name,
-        lastName: evt.data.last_name,
+        email: evt.data.email_addresses[0]?.email_address ?? "",
+        firstName: evt.data.first_name ?? "",
+        lastName: evt.data.last_name ?? "",
       },
     });
 
@@ -64,9 +64,9 @@ export async function POST(req: Request) {
         },
         data: {
           clerkId: evt.data.id,
-          email: evt.data.email_addresses[0]?.email_address,
-          firstName: evt.data.first_name,
-          lastName: evt.data.last_name,
+          email: evt.data.email_addresses[0]?.email_address ?? "",
+          firstName: evt.data.first_name ?? "",
+          lastName: evt.data.last_name ?? "",
         },
       });
   }
