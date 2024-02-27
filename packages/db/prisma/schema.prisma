@@ -18,14 +18,26 @@ model User {
     ticketHolder   TicketHolder[]
     eventRole      EventMembership[]
     isDeleted      Boolean @default(false)
+    isStaff        Boolean @default(false)
 }
 
 model Event {
   id               String       @id @default(cuid())
   organisationId   String       @unique
   name             String
+  startDate        DateTime
+  endDate          DateTime
+  placeId          String
+  type             EventType
   slug             String       @unique
   imageUrl         String
+  phone            String?
+  email            String?
+  website          String?
+  facebook         String?
+  instagram        String?
+  youtube          String?
+  description      String?
   isDeleted        Boolean      @default(false)
   createdAt        DateTime     @default(now())
   updatedAt        DateTime     @default(now())
@@ -70,5 +82,30 @@ enum Role {
   OWNER
   SECURITY
   ADMIN
+}
+
+enum EventType {
+  koncert
+  festival
+  dj
+  zabava
+  razstava
+  film
+  predstava
+  stand_up 
+  kvizi
+  konferenca
+  seminar
+  kolesarstvo
+  kosarka
+  paintball
+  rafting
+  tek_maraton 
+  turnirji
+  mma
+  networking
+  delavnica
+  ostalo
+  privatni_dogodek
 }
 
