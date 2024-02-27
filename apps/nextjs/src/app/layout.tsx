@@ -125,6 +125,7 @@ export default function RootLayout(props: { children: React.ReactNode }) {
           )}
         >
           <Navbar>{props.children}</Navbar>
+
           <Toaster />
         </body>
       </html>
