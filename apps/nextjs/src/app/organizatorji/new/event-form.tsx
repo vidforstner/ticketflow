@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { DateTimePicker } from "@/components/ui/date-time-picker";
 import {
@@ -58,7 +58,10 @@ const eventSchema = z.object({
     .string()
     .min(2)
     .max(50)
-    .regex(/^[^\s]*$/, "No spaces are allowed"),
+    .regex(
+      /^[a-zA-Z0-9-]*$/,
+      "URL dogodka lahko vsebuje le črke, številke in -",
+    ),
   start: z.date(),
   end: z.date(),
   location: z.object({
@@ -132,6 +135,7 @@ const defaultValues: Partial<EventFormValues> = {
 
 export default function EventForm() {
   const [isUploading, setIsUploading] = useState(false);
+  const [isSlugLinked, setIsSlugLinked] = useState(true);
 
   const form = useForm<EventFormValues>({
     resolver: zodResolver(eventSchema),
@@ -147,6 +151,18 @@ export default function EventForm() {
     name: "tickets",
     control: form.control,
   });
+
+  useEffect(() => {
+    form.watch((value, { name, type }) => {
+      if (type === "change" && name === "name" && isSlugLinked)
+        form.setValue(
+          "slug",
+          (value.name ?? "").replace(/\s/g, "-").toLowerCase(),
+        );
+
+      if (type === "change" && name === "slug") setIsSlugLinked(false);
+    });
+  }, [form, isSlugLinked]);
 
   return (
     <Form {...form}>
