@@ -52,7 +52,7 @@ model EventMembership {
   userId           String
   user             User @relation(fields: [userId], references: [id])
   role             Role
-  clerkId          String  //no clue if this exists within clerk
+  clerkId          String 
 
   @@index([eventId], name: "eventId")
   @@index([userId], name: "userId")
