@@ -312,9 +312,11 @@ export default function EventForm() {
                         setDate={(date) => {
                           field.onChange(date);
                         }}
+                        minDate={form.watch("start")}
                       />
                     </div>
                   </FormControl>
+                  <FormMessage />
                 </FormItem>
               )}
             />
@@ -588,6 +590,7 @@ export default function EventForm() {
             ))}
           </TableBody>
         </Table>
+
         <Button
           onClick={() =>
             appendTicket(defaultTicketValues as EventFormValues["tickets"][0])

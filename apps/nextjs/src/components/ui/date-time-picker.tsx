@@ -17,9 +17,11 @@ import { TimePicker } from "./time-picker";
 export function DateTimePicker({
   date,
   setDate,
+  minDate,
 }: {
   date: Date;
   setDate: (date: Date | undefined) => void;
+  minDate?: Date;
 }) {
   return (
     <Popover>
@@ -42,7 +44,7 @@ export function DateTimePicker({
           onSelect={setDate}
           initialFocus
           weekStartsOn={1}
-          disabled={(day) => day < new Date()}
+          disabled={(day) => day < (minDate ?? new Date())}
         />
         <div className="border-t border-neutral-600 p-3">
           <TimePicker setDate={setDate} date={date} />
