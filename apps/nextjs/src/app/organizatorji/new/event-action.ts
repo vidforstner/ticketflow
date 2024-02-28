@@ -6,12 +6,14 @@ import { prisma } from "@acme/db";
 
 import { eventSchema } from "./event-form";
 
-export const loginUser = action(eventSchema, async (event) => {
+export const createEvent = action(eventSchema, async (event) => {
+  //Create a Clerk organization
+
   await prisma.event.create({
     data: {
       organisationId: "ssdsd",
       name: event.name,
-      slug: "dsdd",
+      slug: event.slug,
       startDate: event.start,
       endDate: event.end,
       placeId: event.location.value.place_id,
@@ -26,4 +28,6 @@ export const loginUser = action(eventSchema, async (event) => {
       description: event.description,
     },
   });
+
+  //Sends Email
 });

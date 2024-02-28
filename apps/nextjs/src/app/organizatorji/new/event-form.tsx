@@ -33,6 +33,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { XIcon } from "lucide-react";
+import { useAction } from "next-safe-action/hooks";
 import GooglePlacesAutocomplete from "react-google-places-autocomplete";
 import { useFieldArray, useForm } from "react-hook-form";
 import { z } from "zod";
@@ -42,6 +43,7 @@ import { EventType } from "@acme/db";
 import { Button } from "~/components/ui/button";
 import { Textarea } from "~/components/ui/textarea";
 import { UploadButton } from "~/utils/uploadthing";
+import { createEvent } from "./event-action";
 
 type EventFormValues = z.infer<typeof eventSchema>;
 
@@ -137,6 +139,8 @@ export default function EventForm() {
   const [isUploading, setIsUploading] = useState(false);
   const [isSlugLinked, setIsSlugLinked] = useState(true);
 
+  const { execute, result, status } = useAction(createEvent);
+
   const form = useForm<EventFormValues>({
     resolver: zodResolver(eventSchema),
     defaultValues,
@@ -164,9 +168,30 @@ export default function EventForm() {
     });
   }, [form, isSlugLinked]);
 
+  function onSubmit(values: z.infer<typeof eventSchema>) {
+    execute(values);
+  }
+
+  if (status === "hasSucceeded")
+    return (
+      <div>
+        <h2 className="text-center text-xl font-semibold">
+          Uspešno ste ustvarili dogodek!
+        </h2>
+      </div>
+    );
+
+  if (status === "hasErrored")
+    return (
+      <div>
+        <p>{result.fetchError}</p>
+        <p>{result.serverError}</p>
+      </div>
+    );
+
   return (
     <Form {...form}>
-      <form>
+      <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="flex gap-6">
           <FormField
             control={form.control}
