@@ -593,7 +593,10 @@ export default function EventForm() {
 
         <Button
           onClick={() =>
-            appendTicket(defaultTicketValues as EventFormValues["tickets"][0])
+            appendTicket({
+              ...defaultTicketValues,
+              end: form.watch("end"),
+            } as EventFormValues["tickets"][0])
           }
           variant="outline"
           className="space-y-0"
