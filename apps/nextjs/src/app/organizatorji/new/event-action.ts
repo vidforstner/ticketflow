@@ -16,8 +16,6 @@ export const createEvent = action(eventSchema, async (event) => {
     },
   });
 
-  console.log(event);
-
   //Create a Clerk organization
 
   await prisma.event.create({
@@ -48,11 +46,13 @@ export const createEvent = action(eventSchema, async (event) => {
         })),
       },
       eventMemberships: {
-        create: {
-          role: "ADMIN",
-          userId: author?.id ?? "",
-          clerkId: userId ?? "",
-        },
+        create: [
+          {
+            role: "ADMIN",
+            userId: author?.id ?? "",
+            clerkId: userId ?? "",
+          },
+        ],
       },
     },
   });

@@ -65,7 +65,7 @@ export default function EventForm() {
   const [isUploading, setIsUploading] = useState(false);
   const [isSlugLinked, setIsSlugLinked] = useState(true);
 
-  const { execute, result, status } = useAction(createEvent);
+  const { execute, result, status, reset } = useAction(createEvent);
 
   const form = useForm<EventFormValues>({
     resolver: zodResolver(eventSchema),
@@ -112,6 +112,8 @@ export default function EventForm() {
       <div>
         <p>{result.fetchError}</p>
         <p>{result.serverError}</p>
+
+        <Button onClick={() => reset}>Poskusi ponovno</Button>
       </div>
     );
 
