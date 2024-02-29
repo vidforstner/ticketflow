@@ -61,6 +61,12 @@ model EventMembership {
 
 model TicketType {
     id            String @id @default(cuid())
+    name          String
+    price         Float
+    amount        Int
+    startDate     DateTime
+    endDate       DateTime
+    details       String?
     eventId       String
     event         Event @relation(fields: [eventId], references: [id])
     ticketHolder  TicketHolder[]

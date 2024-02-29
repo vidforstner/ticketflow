@@ -112,8 +112,6 @@ export default function EventForm() {
       <div>
         <p>{result.fetchError}</p>
         <p>{result.serverError}</p>
-
-        <Button onClick={() => reset}>Poskusi ponovno</Button>
       </div>
     );
 
