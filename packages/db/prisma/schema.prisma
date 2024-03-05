@@ -30,7 +30,7 @@ model Event {
   placeId          String
   type             EventType
   slug             String       @unique
-  imageUrl         String
+  imageKey         String
   phone            String?
   email            String?
   website          String?
