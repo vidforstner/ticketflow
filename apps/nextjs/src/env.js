@@ -21,6 +21,7 @@ export const env = createEnv({
     DATABASE_URL: z.string().url(),
     UPLOADTHING_SECRET: z.string(),
     WEBHOOK_SECRET: z.string(),
+    CRON_SECRET: z.string(),
   },
   /**
    * Specify your client-side environment variables schema here.
@@ -28,7 +29,6 @@ export const env = createEnv({
    */
   client: {
     // NEXT_PUBLIC_CLIENTVAR: z.string(),
-
     NEXT_PUBLIC_GOOGLE_MAPS_API_KEY: z.string(),
   },
   /**
@@ -42,6 +42,7 @@ export const env = createEnv({
       process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY,
     UPLOADTHING_SECRET: process.env.UPLOADTHING_SECRET,
     WEBHOOK_SECRET: process.env.WEBHOOK_SECRET,
+    CRON_SECRET: process.env.CRON_SECRET,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   skipValidation:
