@@ -378,7 +378,7 @@ importers:
   packages/db:
     dependencies:
       '@prisma/client':
-        specifier: ^5.2.0
+        specifier: ^5.8.1
         version: 5.8.1(prisma@5.10.2)
     devDependencies:
       '@acme/tsconfig':
