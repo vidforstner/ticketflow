@@ -1,0 +1,8 @@
+{
+  "crons": [
+    {
+      "path": "/api/garbage-collector",
+      "schedule": "0 10 * * *"
+    }
+  ]
+}
